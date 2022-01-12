@@ -85,9 +85,9 @@ O comando para iniciar o sistema é `npm run start` caso esteja utilizando um si
 ***
 
 ## Autor
-Willian Carlos
-<wcs7777git@gmail.com>
-<https://www.linkedin.com/in/williancarlosdasilva/>
+Willian Carlos  
+<wcs7777git@gmail.com>  
+<https://www.linkedin.com/in/williancarlosdasilva/>  
 
 [1]: https://nodejs.org/en/
 [2]: https://expressjs.com/
