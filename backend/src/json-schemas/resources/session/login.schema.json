@@ -1,0 +1,12 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://arranke.com/login.schema.json",
+	"title": "Login",
+	"description": "Credentials to log in to the system",
+	"type": "object",
+	"properties": {
+		"email": { "$ref": "../../properties/users/email" },
+		"password": { "$ref": "../../properties/users/password" }
+	},
+	"required": ["email", "password"]
+}

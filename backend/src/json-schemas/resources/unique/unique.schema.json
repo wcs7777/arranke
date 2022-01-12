@@ -1,0 +1,66 @@
+{
+	"$id": "https://arranke.com/unique.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Unique",
+	"description": "Used by the client to verify that a field is unique",
+	"type": "object",
+	"properties": {
+		"id": {
+			"description": "Pass id if updating",
+			"$ref": "https://arranke.com/properties/id.schema.json"
+		},
+		"table": {
+			"type": "string",
+			"enum": [
+				"car",
+				"user",
+				"individual",
+				"garage"
+			]
+		},
+		"field": {
+			"type": "string"
+		},
+		"value": {
+			"oneOf": [
+				{ "type": "string" },
+				{ "type": "number" }
+			]
+		}
+	},
+	"allOf": [
+		{
+			"if": {
+				"properties": { "table": { "const": "car" } }
+			},
+			"then": {
+				"properties": { "field": { "const": "plate" } }
+			}
+		},
+		{
+			"if": {
+				"properties": { "table": { "const": "user" } }
+			},
+			"then": {
+				"properties": { "field": { "const": "email" } }
+			}
+		},
+		{
+			"if": {
+				"properties": { "table": { "const": "individual" } }
+			},
+			"then": {
+				"properties": { "field": { "const": "cpf" } }
+			}
+		},
+		{
+			"if": {
+				"properties": { "table": { "const": "garage" } }
+			},
+			"then": {
+				"properties": { "field": { "const": "cnpj" } }
+			}
+		}
+	],
+	"required": ["table", "field", "value"]
+}

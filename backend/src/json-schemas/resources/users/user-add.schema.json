@@ -1,0 +1,13 @@
+{
+	"$id": "https://arranke.com/resources/users/user-add.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "User Add",
+	"type": "object",
+	"properties": {
+		"name": { "$ref": "../../properties/users/name" },
+		"email": { "$ref": "../../properties/users/email" },
+		"password": { "$ref": "../../properties/users/password" },
+		"phone": { "$ref": "../../properties/users/phone" }
+	},
+	"required": ["name", "email", "password", "phone"]
+}

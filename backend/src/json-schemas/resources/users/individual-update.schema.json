@@ -1,0 +1,18 @@
+{
+	"$id": "https://arranke.com/resources/users/individual-update.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Individual Update",
+	"type": "object",
+	"properties": {
+		"name": { "$ref": "../../properties/individuals/name" },
+		"email": { "$ref": "../../properties/individuals/email" },
+		"phone": { "$ref": "../../properties/individuals/phone" },
+		"cpf": { "$ref": "../../properties/individuals/cpf" },
+		"address": {
+			"type": "object",
+			"$ref": "../../properties/individuals/address",
+			"required": ["cep", "state", "city", "area", "street", "number"]
+		}
+	},
+	"required": ["name", "email", "phone", "cpf", "address"]
+}

@@ -1,0 +1,85 @@
+{
+	"$id": "https://arranke.com/properties/filters/cars-filters.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Car Filters",
+	"description": "Filter for GET /cars",
+	"type": "object",
+	"properties": {
+		"used": {
+			"$id": "https://arranke.com/properties/cars-filters/used",
+			"$ref": "https://arranke.com/properties/filters/boolean"
+		},
+		"make": {
+			"$id": "https://arranke.com/properties/cars-filters/make",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"model": {
+			"$id": "https://arranke.com/properties/cars-filters/model",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"color": {
+			"$id": "https://arranke.com/properties/cars-filters/color",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"fuel": {
+			"$id": "https://arranke.com/properties/cars-filters/fuel",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"steering": {
+			"$id": "https://arranke.com/properties/cars-filters/steering",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"transmission": {
+			"$id": "https://arranke.com/properties/cars-filters/transmission",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"brake": {
+			"$id": "https://arranke.com/properties/cars-filters/brake",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"drivetrain": {
+			"$id": "https://arranke.com/properties/cars-filters/drivetrain",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"feature": {
+			"$id": "https://arranke.com/properties/cars-filters/feature",
+			"$ref": "https://arranke.com/properties/filters/list"
+		},
+		"mileage": {
+			"$id": "https://arranke.com/properties/cars-filters/mileage",
+			"$ref": "https://arranke.com/properties/filters/range"
+		},
+		"price": {
+			"$id": "https://arranke.com/properties/cars-filters/price",
+			"$ref": "https://arranke.com/properties/filters/range"
+		},
+		"doors": {
+			"$id": "https://arranke.com/properties/cars-filters/doors",
+			"type": "string",
+			"pattern": "^\\d{1,2}$"
+		},
+		"plate_end": {
+			"$id": "https://arranke.com/properties/cars-filters/plate_end",
+			"type": "string",
+			"pattern": "^\\d$"
+		},
+		"state": {
+			"$id": "https://arranke.com/properties/cars-filters/state",
+			"$ref": "https://arranke.com/properties/address/state"
+		},
+		"city": {
+			"$id": "https://arranke.com/properties/cars-filters/city",
+			"$ref": "https://arranke.com/properties/address/city"
+		},
+		"ordering": {
+			"$id": "https://arranke.com/properties/cars-filters/ordering",
+			"type": "string",
+			"enum": [
+				"price",
+				"-price",
+				"mileage",
+				"-mileage"
+			]
+		}
+	}
+}

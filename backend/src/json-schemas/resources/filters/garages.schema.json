@@ -1,0 +1,13 @@
+{
+	"$id": "https://arranke.com/resources/filters/garages.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Garage Filters",
+	"description": "Filters for GET /garages",
+	"type": "object",
+	"properties": {
+		"name": { "$ref": "../../properties/garages-filters/name" },
+		"state": { "$ref": "../../properties/garages-filters/state" },
+		"city": { "$ref": "../../properties/garages-filters/city" },
+		"ordering": { "$ref": "../../properties/garages-filters/ordering" }
+	}
+}

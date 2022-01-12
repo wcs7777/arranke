@@ -1,0 +1,1484 @@
+Response errors
+	O body é inválido
+	400 Bad Request
+
+	O usuário não está autenticado
+	401 Unauthorized
+
+	O usuário não tem permissão para essa ação
+	403 Forbidden
+
+	O recurso solicitado não foi encontrado
+	404 Not Found
+
+	O formulário submetido tem campo(s) inválido(s)
+	422 Unprocessable Entity
+	Body:
+	/* erros */
+	{
+		//objeto descrevendo os erros
+	}
+
+/login
+	Recurso 1: entrar (login do usuário no sistema)
+	POST
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"email": "usuario@contato",
+				"password": "senha123"
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"type": "Usuário" | "Individual" | "Garagem",
+				"name": "Nome do Usuário",
+				"garage": "Nome da Garagem" /* caso o tipo de usuário for garagem */
+			}
+
+/logout
+	Recurso 2: sair (logout do usuário no sistema)
+	POST
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Location: /login (redirecionar para tela de login)
+			Body:
+			{
+				"message": "logout"
+			}
+
+/authenticated
+	Recurso 3: verificar se o usuário está autenticado no sistema
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response:
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"authenticated": true | false
+			}
+
+/password-recovery/code
+	Recurso 4: redefinir senha - gerar código (cria o código para recuperação de senha e envia para o email do usuário)
+	POST
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"email": "emaildosuuario@contato"
+			}
+		Response
+			200 OK
+			Body:
+			{
+				"message": "sent"
+			}
+	Recurso 5: redefinir senha - conferir código (verifica se o código enviado corresponde com o código gerado)
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"email": "emaildosuuario@contato",
+				"code": "12345678"
+			}
+		Response
+			200 OK
+			Body:
+			{
+				"valid": true | false
+			}
+
+/password-recovery/new-password
+	Recurso 6: redefinir senha - redefinir senha (altera a senha do usuário)
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"email": "emaildosuuario@contato",
+				"code": "12345678", /* o código que o usuário informou */
+				"password": "novasenha",
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Location: /login (redirecionar para tela de login)
+			Body:
+			{
+				"message": "alterada"
+			}
+
+/user
+	Recurso 7: criar usuario (usado para criar ofertante)
+	POST
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"name": "Nome do Usuário",
+				"email": "usuario@contato",
+				"password": "senha123",
+				"phone": "22123451234"
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Location: /login (redirecionar para tela de login)
+			Body:
+			{
+				"name": "Nome do Usuário",
+				"email": "usuario@contato",
+				"phone": "22123451234"
+			}
+	Recurso 8: recuperar informações do usuário para atualizar (autenticado)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"name": "Novo Nome do Usuário",
+				"email": "novousuario@contato",
+				"phone": "22123451234"
+			}
+	Recurso 9: atualizar usuario (autenticado)
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"name": "Novo Nome do Usuário",
+				"email": "novousuario@contato",
+				"phone": "22123451234"
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"name": "Novo Nome do Usuário",
+				"email": "novousuario@contato",
+				"phone": "22123451234"
+			}
+	Recurso 10: remover usuario (autenticado)
+	DELETE
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Location: /login (redirecionar para tela de login)
+			Body:
+			{
+				"message": "logout"
+			}
+
+/user/new-password
+	Recurso 11: atualizar a senha de todos os tipos de usuário (autenticado)
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"currentPassword": "senhatual",
+				"newPassword": "novasenha"
+			}
+		Response
+			200 OK
+			Body:
+			{
+				"message": "reset"
+			}
+
+/individual
+	Recurso 12: criar vendedor individual
+	POST
+		Request /* caso seja um ofertante existente que virará para vendedor, estará autenticado como usuário */
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"name": "Nome do Vendedor Individual", /* caso seja um usuário novo */
+				"email": "vendedorindividual@contato",	/* caso seja um usuário novo */
+				"password": "senha123",	/* caso seja um usuário novo */
+				"phone": "22123451234",	/* caso seja um usuário novo */
+				"cpf": "11111111111",
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro",
+					"street": "Nome da Rua",
+					"number": "123"
+				}
+			}
+		Response:
+			200 OK
+			Content-type: application/json
+			Location: /login (redirecionar para tela de login) | /logout (caso for um usuário que virou vendedor é necessário logar novamente)
+			Body:
+			{
+				"name": "Nome do Vendedor",
+				"email": "vendedor@contato",
+				"phone": "22123451234",
+				"cpf": "11111111111",
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro",
+					"street": "Nome da Rua",
+					"number": "123"
+				}
+			}
+	Recurso 13: recuperar informações do vendedor individual para atualizar (autenticado como vendedor individual)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"name": "Nome do Vendedor Individual",
+				"email": "vendedorindividual@contato",
+				"phone": "22123451234",
+				"cpf": "11111111111",
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro",
+					"street": "Nome da Rua",
+					"number": "123"
+				}
+			}
+	Recurso 14: atualizar vendedor individual (autenticado como vendedor individual)
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"name": "Nome do Vendedor Individual",
+				"email": "vendedorindividual@contato",
+				"phone": "22123451234",
+				"cpf": "11111111111",
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro",
+					"street": "Nome da Rua",
+					"number": "123"
+				}
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"name": "Nome do Usuário",
+				"email": "usuario@contato",
+				"phone": "22123451234",
+				"cpf": "11111111111",
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro",
+					"street": "Nome da Rua",
+					"number": "123"
+				}
+			}
+	Recurso 15: remover vendedor individual e seus carros (autenticado como vendedor individual)
+	DELETE
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Location: /login (redirecionar para tela de login)
+			Body:
+			{
+				"message": "logout"
+			}
+
+/garage
+	Recurso 16: criar garagem
+	POST
+		Request /* caso seja um ofertante existente que virará para vendedor, estará autenticado como usuário */
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"name": "Garagem 123",
+				"cnpj": "12345678901234",
+				"picture": "base64data",
+				"responsible": { /* caso seja um usuário novo */
+					"name": "Nome do Responsável",
+					"email": "responsavel@contato",
+					"password": "senha123",
+					"phone": "22123451234",
+				},
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro da Garagem",
+					"street": "Nome da Rua da Garagem",
+					"number": "123"
+				}
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Location: /login (redirecionar para tela de login) | /logout (caso for um usuário que virou vendedor é necessário logar novamente)
+			Body:
+			{
+				"name": "Garagem 123",
+				"cnpj": "12345678901234",
+				"picture": "caminho/garagem1.jpg",
+				"responsible": {
+					"name": "Nome do Responsável",
+					"email": "responsavel@contato",
+					"phone": "22123451234",
+				},
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro da Garagem",
+					"street": "Nome da Rua da Garagem",
+					"number": "123"
+				}
+			}
+	Recurso 17: recuperar informações da garagem para atualizar (autenticado como garagem)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"name": "Garagem 123",
+				"cnpj": "12345678901234",
+				"picture": "caminho/garagem1.jpg",
+				"responsible": {
+					"name": "Nome do Responsável",
+					"email": "responsavel@contato",
+					"phone": "22123451234",
+				},
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro da Garagem",
+					"street": "Nome da Rua da Garagem",
+					"number": "123"
+				}
+			}
+	Recurso 18: atualizar garagem (autenticado como garagem)
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"name": "Garagem 123",
+				"cnpj": "12345678901234",
+				"picture": "base64data",
+				"responsible": {
+					"name": "Nome do Responsável",
+					"email": "responsavel@contato",
+					"phone": "22123451234",
+				},
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro da Garagem",
+					"street": "Nome da Rua da Garagem",
+					"number": "123"
+				}
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"name": "Garagem 123",
+				"cnpj": "12345678901234",
+				"picture": "caminho/garagem1.jpg",
+				"responsible": {
+					"name": "Nome do Responsável",
+					"email": "responsavel@contato",
+					"phone": "22123451234",
+				},
+				"address": {
+					"cep": "15900013",
+					"state": "SP",
+					"city": "Taquaritinga",
+					"area": "Nome do Bairro da Garagem",
+					"street": "Nome da Rua da Garagem",
+					"number": "123"
+				}
+			}
+	Recurso 19: remover garagem e seus carros(autenticado como garagem)
+	DELETE
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Location: /login (redirecionar para tela de login)
+			Body:
+			{
+				"message": "logout"
+			}
+
+/car-properties
+	Recurso 20: recuperar características - usado para criar e atualizar anúncio e para na tela para visualizar os carros como opções de filtro (marcas, cores, combustíveis, direções, câmbios, freios, trações e acessórios)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"make": [
+					{
+						"id": 1,
+						"name": "Marca 1"
+					},
+					{
+						"id": 2,
+						"name": "Marca 2"
+					}
+				],
+				"color": [
+					{
+						"id": 1,
+						"name": "Cor 1"
+					},
+					{
+						"id": 2,
+						"name": "Cor 2"
+					}
+				],
+				"fuel": [
+					{
+						"id": 1,
+						"name": "Combustível 1"
+					},
+					{
+						"id": 2,
+						"name": "Combustível 2"
+					}
+				],
+				"steering": [
+					{
+						"id": 1,
+						"name": "Direção 1"
+					},
+					{
+						"id": 2,
+						"name": "Direção 2"
+					}
+				],
+				"transmission": [
+					{
+						"id": 1,
+						"name": "Câmbio 1"
+					},
+					{
+						"id": 2,
+						"name": "Câmbio 2"
+					}
+				],
+				"brake": [
+					{
+						"id": 1,
+						"name": "Freio 1"
+					},
+					{
+						"id": 2,
+						"name": "Freio 2"
+					}
+				],
+				"drivetrain": [
+					{
+						"id": 1,
+						"name": "Tração 1"
+					},
+					{
+						"id": 2,
+						"name": "Tração 2"
+					}
+				],
+				"feature": [
+					{
+						"id": 1,
+						"name": "Acessório 1"
+					},
+					{
+						"id": 2,
+						"name": "Acessório 2"
+					}
+				]
+			}
+
+/makes/:id/models
+	Recurso 21: recuperar modelos - usado para criar e atualizar anúncio e para na tela para visualizar os carros como opções de filtro (marcas, cores, combustíveis, direções, câmbios, freios, trações e acessórios)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			[
+				{
+					"id": 1,
+					"name": "Modelo 1 da Marca :id"
+				},
+				{
+					"id": 2,
+					"name": "Modelo 2 da Marca :id"
+				}
+			]
+
+/advertisements
+	Recurso 22: criar anúncio do carro (autenticado como vendedor)
+	POST
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				/*
+					informar o id e o nome se o usuário escolheu um cadastrado ou
+					apenas o nome se ele cadastrou um novo
+				*/
+				"make": {
+					"id": 1,
+					"name": "Marca 1"
+				},
+				/*
+					informar o id e o nome se o usuário escolheu um cadastrado ou
+					apenas o nome se ele cadastrou um novo
+				*/
+				"model": { /* Exemplo de um novo cadastrado */
+					"name": "Modelo novo"
+				},
+				"plate": "AAA1111" | "AAA1A11",
+				"year": "2010",
+				"price": 30000,
+				"mileage": 4000,
+				"used": true | false,
+				"observations": "Obervações sobre o carro e o anúncio",
+				/* converter a imagem enviada para base64, ordem 1 é a foto principal */
+				"pictures": [
+					{
+						"sequence": 1,
+						"encoding": "data"
+					},
+					{
+						"sequence": 2,
+						"encoding": "data"
+					}
+				],
+				"specifications": {
+					"doors": 2,
+					/*
+						informar o id e o nome se o usuário escolheu um cadastrado ou
+						apenas o nome se ele cadastrou um novo
+					*/
+					"color": {
+						"id"; 1,
+						"name": "Cor 1"
+					},
+					"fuel"": {
+						"id"; 1,
+						"name": "Combustível 1"
+					},
+					"steering": { /* Exemplo de um novo cadastrado */
+						"name": "Automática"
+					},
+					"transmission": {
+						"id"; 1,
+						"name": "Câmbio 1"
+					},
+					"brake": { /* Exemplo de um novo cadastrado */
+						"name": "ABS"
+					},
+					"drivetrain": {
+						"id"; 1,
+						"name": "Tração 1"
+					},
+					"features": [
+						/*
+							informar o id e o nome se o usuário escolheu um cadastrado ou
+							apenas o nome se ele cadastrou um novo
+						*/
+						{
+							"id": 1,
+							"name": "GPS"
+						},
+						{
+							"name": "Air Bag" /* Exemplo de um novo cadastrado */
+						}
+					]
+				}
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"id": 1,
+				"make": {
+					"id": 1,
+					"name": "Marca 1"
+				},
+				"model": {
+					"id": 1,
+					"name": "Modelo novo"
+				},
+				"plate": "AAA1111" | "AAA1A11",
+				"year": "2010",
+				"price": 30000,
+				"mileage": 4000,
+				"used": true | false,
+				"observations": "Obervações sobre o carro e o anúncio",
+				"pictures": [
+					{
+						"sequence": 1,
+						"path": "/fotos/carro01-1.jpg"
+					},
+					{
+						"sequence": 2,
+						"path": "/fotos/carro01-2.jpg"
+					},
+					{
+						"sequence": 3,
+						"path": "/fotos/carro01-3.jpg"
+					}
+				],
+				"specifications": {
+					"doors": 2,
+					"color": {
+						"id"; 1,
+						"name": "Cor 1"
+					},
+					"fuel"": {
+						"id"; 1,
+						"name": "Combustível 1"
+					},
+					"steering": {
+						"name": "Automática"
+					},
+					"transmission": {
+						"id"; 1,
+						"name": "Câmbio 1"
+					},
+					"brake": {
+						"name": "ABS"
+					},
+					"drivetrain": {
+						"id"; 1,
+						"name": "Tração 1"
+					},
+					"features": [
+						{
+							"id": 1,
+							"name": "GPS"
+						},
+						{
+							"id": 2
+							"name": "Air Bag"
+						}
+					]
+				}
+			}
+
+/advertisements/:id
+	Recurso 23: recuperar informações do anúncio do carro para o vendedor visualizar os detalhes ou atualizar (autenticado como vendedor)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"id": 1,
+				"make": {
+					"id": 1,
+					"name": "Marca 1"
+				},
+				"model": {
+					"id": 1,
+					"name": "Modelo novo"
+				},
+				"plate": "AAA1111" | "AAA1A11",
+				"year": "2010",
+				"price": 30000,
+				"mileage": 4000,
+				"used": true | false,
+				"observations": "Obervações sobre o carro e o anúncio",
+				"pictures": [
+					{
+						"sequence": 1,
+						"path": "/fotos/carro01-1.jpg"
+					},
+					{
+						"sequence": 2,
+						"path": "/fotos/carro01-2.jpg"
+					},
+					{
+						"sequence": 3,
+						"path": "/fotos/carro01-3.jpg"
+					}
+				],
+				"specifications": {
+					"doors": 2,
+					"color": {
+						"id"; 1,
+						"name": "Cor 1"
+					},
+					"fuel"": {
+						"id"; 1,
+						"name": "Combustível 1"
+					},
+					"steering": {
+						"name": "Automática"
+					},
+					"transmission": {
+						"id"; 1,
+						"name": "Câmbio 1"
+					},
+					"brake": {
+						"name": "ABS"
+					},
+					"drivetrain": {
+						"id"; 1,
+						"name": "Tração 1"
+					},
+					"features": [
+						{
+							"id": 1,
+							"name": "GPS"
+						},
+						{
+							"id": 2
+							"name": "Air Bag"
+						}
+					]
+				}
+			}
+	Recurso 24: atualizar anúncio do carro (autenticado como vendedor)
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				/*
+					informar o id e o nome se o usuário escolheu um cadastrado ou
+					apenas o nome se ele cadastrou um novo
+				*/
+				"make": {
+					"id": 1,
+					"name": "Marca 1"
+				},
+				/*
+					informar o id e o nome se o usuário escolheu um cadastrado ou
+					apenas o nome se ele cadastrou um novo
+				*/
+				"model": { /* Exemplo de um novo cadastrado */
+					"name": "Modelo novo"
+				},
+				"plate": "AAA1111" | "AAA1A11",
+				"year": "2010",
+				"price": 30000,
+				"mileage": 4000,
+				"used": true | false,
+				"observations": "Obervações sobre o carro e o anúncio",
+				/* converter a imagem enviada para base64, ordem 1 é a foto principal *?
+				"pictures": [
+					{
+						"sequence": 1,
+						"encoding": "data"
+					},
+					{
+						"sequence": 2,
+						"encoding": "data"
+					}
+				],
+				"specifications": {
+					"doors": 2,
+					/*
+						informar o id e o nome se o usuário escolheu um cadastrado ou
+						apenas o nome se ele cadastrou um novo
+					*/
+					"color": {
+						"id"; 1,
+						"name": "Cor 1"
+					},
+					"fuel"": {
+						"id"; 1,
+						"name": "Combustível 1"
+					},
+					"steering": { /* Exemplo de um novo cadastrado */
+						"name": "Automática"
+					},
+					"transmission": {
+						"id"; 1,
+						"name": "Câmbio 1"
+					},
+					"brake": { /* Exemplo de um novo cadastrado */
+						"name": "ABS"
+					},
+					"drivetrain": {
+						"id"; 1,
+						"name": "Tração 1"
+					},
+					"features": [
+						/*
+							informar o id e o nome se o usuário escolheu um cadastrado ou
+							apenas o nome se ele cadastrou um novo
+						*/
+						{
+							"id": 1,
+							"name": "GPS"
+						},
+						{
+							"name": "Air Bag" /* Exemplo de um novo cadastrado */
+						}
+					]
+				}
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"id": 1,
+				"make": {
+					"id": 1,
+					"name": "Marca 1"
+				},
+				"model": {
+					"id": 1,
+					"name": "Modelo novo"
+				},
+				"plate": "AAA1111" | "AAA1A11",
+				"year": "2010",
+				"price": 30000,
+				"mileage": 4000,
+				"used": true | false,
+				"observations": "Obervações sobre o carro e o anúncio",
+				"pictures": [
+					{
+						"sequence": 1,
+						"path": "/fotos/carro01-1.jpg"
+					},
+					{
+						"sequence": 2,
+						"path": "/fotos/carro01-2.jpg"
+					},
+					{
+						"sequence": 3,
+						"path": "/fotos/carro01-3.jpg"
+					}
+				],
+				"specifications": {
+					"doors": 2,
+					"color": {
+						"id"; 1,
+						"name": "Cor 1"
+					},
+					"fuel"": {
+						"id"; 1,
+						"name": "Combustível 1"
+					},
+					"steering": {
+						"name": "Automática"
+					},
+					"transmission": {
+						"id"; 1,
+						"name": "Câmbio 1"
+					},
+					"brake": {
+						"name": "ABS"
+					},
+					"drivetrain": {
+						"id"; 1,
+						"name": "Tração 1"
+					},
+					"features": [
+						{
+							"id": 1,
+							"name": "GPS"
+						},
+						{
+							"id": 2
+							"name": "Air Bag"
+						}
+					]
+				}
+			}
+	Recurso 25: remover anúncio (autenticado como vendedor)
+	DELETE
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Body:
+			{
+				"message": "removed"
+			}
+
+/advertisements
+	Recurso 26: recuperar anuncios (autenticado como vendedor)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			/* carros */
+			[
+				{
+					"id": 1,
+					"plate": "AAA1111",
+					"make": "Nome da Marca",
+					"model": "Nome do Modelo",
+					"price": 20000,
+					"mileage": 10000,
+					"offers": 5 /* quantidade de ofertas */
+				},
+				{
+					"id": 2,
+					"plate": "AAA1A11",
+					"make": "Nome da Marca",
+					"model": "Nome do Modelo",
+					"price": 10000,
+					"mileage": 10000,
+					"offers": 3 /* quantidade de ofertas */
+				}
+			]
+
+/offers
+	Recurso 27: ver todas as ofertas (autenticado - vendedor)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			[
+				{
+					"id": 1,
+					"car": {
+						"id": 1,
+						"plate": "AAA1111",
+						"make": "Marca do Carro",
+						"model": "Modelo do Carro",
+						"price": 4000,
+						"picture": "caminho/principal-foto.jpg"
+					},
+					"offerer": "Nome de quem fez a oferta"
+				},
+				{
+					"id": 2,
+					"car": {
+						"id": 2,
+						"plate": "AAA1A11",
+						"make": "Marca do Carro",
+						"model": "Modelo do Carro",
+						"price": 7000,
+						"picture": "caminho/principal-foto.jpg"
+					},
+					"offerer": "Nome de quem fez a oferta"
+				}
+			]
+
+/offers/:id
+	Recurso 28: ver oferta (autenticado - vendedor)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"id": 1,
+				"car": {
+					"id": 1,
+					"plate": "AAA1111",
+					"make": "Marca do Carro",
+					"model": "Modelo do Carro",
+					"price": 4000,
+					"picture": "caminho/principal-foto.jpg"
+				},
+				"offerer": {
+					"name": "Nome do ofertante",
+					"phone": "22123451234",
+					"message": "Mensagem do Ofertante"
+				}
+			}
+
+/advertisements/:id/offers
+	Recurso 29: ver ofertas de um anúncio (autenticado - vendedor)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			[
+				{
+					"id": 1,
+					"offerer": {
+						"name": "Nome do ofertante",
+						"phone": "22123451234",
+						"message": "Mensagem do Ofertante"
+					}
+				},
+				{
+					"id": 2,
+					"offerer": {
+						"name": "Nome do ofertante",
+						"phone": "22123451234",
+						"message": "Mensagem do Ofertante"
+					}
+				}
+			]
+
+/cars/:id/offers
+	Recurso 30: criar oferta para um carro (autenticado)
+	POST
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"message": "Mensagem do ofertante"
+			}
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"id": 1,
+				"offerer": {
+					"name": "Nome do ofertante",
+					"phone": "22123451234",
+					"message": "Mensagem do Ofertante"
+				}
+			}
+
+/cars
+	Recurso 31: ver carros
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			[
+				{
+					"car": {
+						"id": 1,
+						"make": "Nome da Marca",
+						"model": "Nome do modelo",
+						"price": 20000,
+						"mileage": 10000,
+						"picture": "caminho/principal-foto.jpg"
+					},
+					"dealer": {
+						"type": "Individual | Garagem",
+						"name": "Nome do Vendedor Individual | Garagem"
+					},
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				},
+				{
+					"car": {
+						"id": 2,
+						"make": "Nome da Marca",
+						"model": "Nome do modelo",
+						"price": 20000,
+						"mileage": 10000,
+						"picture": "caminho/principal-foto.jpg"
+					},
+					"dealer": {
+						"type": "Individual | Garagem",
+						"name": "Nome do Vendedor Individual | Garagem"
+					},
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				}
+			]
+
+/cars/:id
+	Recurso 32: ver carro
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"car": {
+					"id": 1,
+					"make": {
+						"id": 1,
+						"name": "Marca 1"
+					},
+					"model": {
+						"id": 1,
+						"name": "Modelo novo"
+					},
+					"plateEnd": "1",
+					"year": "2010",
+					"price": 30000,
+					"mileage": 4000,
+					"used": true,
+					"observations": "Obervações sobre o carro e o anúncio",
+					"pictures": [
+						{
+							"sequence": 1,
+							"path": "/caminho/foto1.jpg"
+						},
+						{
+							"sequence": 2,
+							"path": "/caminho/foto2.jpg"
+						}
+					],
+					"specifications": {
+						"doors": 2,
+						"color": {
+							"id": 1,
+							"name": "Cor 1"
+						},
+						"fuel"": {
+							"id": 1,
+							"name": "Combustível 1"
+						},
+						"steering": {
+							"id": 1,
+							"name": "Direção 1"
+						},
+						"transmission": {
+							"id": 1,
+							"name": "Câmbio 1"
+						},
+						"brake": {
+							"id": 1,
+							"name": "Freio 1"
+						},
+						"drivetrain": {
+							"id": 1,
+							"name": "Tração 1"
+						}
+						"features": [
+							{
+								"id": 1,
+								"name": "Acessório 1"
+							},
+							{
+								"id": 2,
+								"name": "Acessório 2"
+							},
+							{
+								"id": 3,
+								"name": "Acessório 3"
+							}
+						]
+					},
+				},
+				"dealer": {
+					"type": "Individual | Garagem",
+					"name": "Nome do VendedorIndividual | Garagem",
+					"phone": "22123451234",
+					"address": {
+						"state": "SP",
+						"city": "Taquaritinga",
+						"area": "Nome do Bairro",
+						"street": "Nome da Rua",
+						"number": "123"
+					}
+				}
+			}
+
+/garages
+	Recurso 33: ver garagens
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			[
+				{
+					"id": 1,
+					"name": "Nome da Garagem",
+					"cars": 3, /* Quantidade de carros anunciados */
+					"picture": "caminho/principal-foto.jpg",
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				}
+				{
+					"id": 2,
+					"name": "Nome da Garagem",
+					"cars": 3, /* Quantidade de carros anunciados */
+					"picture": "caminho/principal-foto.jpg",
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				}
+			]
+
+/garages/:id
+	Recurso 34: ver garagem (carros)
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{
+				"cars": [
+					{
+						"id": 1,
+						"make": "Nome da Marca",
+						"model": "Nome do modelo",
+						"price": 20000,
+						"picture": "caminho/principal-foto.jpg"
+					},
+					{
+						"id": 2,
+						"make": "Nome da Marca",
+						"model": "Nome do modelo",
+						"price": 20000,
+						"picture": "caminho/principal-foto.jpg"
+					}
+				],
+				"garage": {
+					"id": 1,
+					"name": "Nome da Garagem",
+					"picture": "caminho/foto.jpg",
+					"phone": "22123451234",
+					"address": {
+						"state": "SP",
+						"city": "Taquaritinga",
+						"area": "Nome do Bairro",
+						"street": "Nome da Rua",
+						"number": "123"
+					}
+				}
+			}
+
+/unique
+	Recurso 35: validar se um campo de um recurso é único
+	PUT
+		Request
+			Content-type: application/json
+			Accept: application/json
+			Body:
+			{
+				"id": 1, /* se estiver atualizando */
+				"table": "nome do recurso",
+				"field": "campo do recurso",
+				"value": "valor do recurso"
+			}
+			Exemplos:
+			{ "car": { "plate": "AAA1111" } }
+			{ "car": { "plate": "AAA1A11" } }
+			{ "user": { "email": "usuario@contato" } }
+			{ "garage": { "cnpj": "12345678012" } }
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			{ "unique": true | false }
+
+/cars?filters
+	Recurso 36: filtrar carros
+	Filtros:
+		/* boolean */
+			used=1 /* verdadeiro */
+			used=0 /* falso */
+		/* array com os ids */
+			make=[1,2,3]
+			model=[1,2,3]
+			color=[1,2,3]
+			fuel=[1,2,3]
+			steering=[1,2,3]
+			transmission=[1,2,3]
+			brake=[1,2,3]
+			drivetrain[1,2,3]
+			feature=[1,2,3]
+		/* faixa com o limite inferior e superior */
+			mileage=0|100 /* de 0 à 100 */
+			price=5000|10000
+		/* texto */
+			doors=2
+			plate_end=1
+			state=SP
+			city=Taquaritinga
+		/* ordenação (preço ou quilometragem) : - para descendente */
+			/* Exemplo: ordenar pelo preco descendentemenete */
+			ordering=-price
+			/* Exemplo: ordenar pela quilometragem ascendentemenete */
+			ordering=mileage
+		/* Juntar os filtros com & */
+		/* Exemplo: carros com cores 3 e 7, freios 3 e quilometragem entre 100 e 1000 e ordenado pelo preço */
+		/cars?color=[3,7]&brake=[3]&mileage=100|1000&ordering=price
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			[
+				{
+					"car": {
+						"id": 1,
+						"make": "Nome da Marca",
+						"model": "Nome do modelo",
+						"price": 20000,
+						"mileage": 10000,
+						"picture": "/caminho/foto.jpg"
+					},
+					"dealer": {
+						"type": "Individual | Garagem",
+						"name": "Nome do VendedorIndividual | Garagem"
+					},
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				},
+				{
+					"car": {
+						"id": 2,
+						"make": "Nome da Marca",
+						"model": "Nome do modelo",
+						"price": 20000,
+						"mileage": 10000,
+						"picture": "/caminho/foto2.jpg"
+					},
+					"dealer": {
+						"type": "Individual | Garagem",
+						"name": "Nome do VendedorIndividual | Garagem"
+					},
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				}
+			]
+
+/garages?filters
+	Recurso 37: filtrar garagens
+	Filtros:
+		/* texto */
+			name=Nome da Garagem
+			state=SP
+			city=Taquaritinga
+		/* ordenação (nome) : - para descendente */
+			/* Exemplo: ordenar pelo nome descendentemenete */
+			ordering=-name
+			/* Exemplo: ordenar pelo nome ascendentemenete */
+			ordering=name
+		/* Juntar os filtros com & */
+	GET
+		Request
+			Content-type: application/json
+			Accept: application/json
+		Response
+			200 OK
+			Content-type: application/json
+			Body:
+			[
+				{
+					"id": 1,
+					"name": "Nome da Garagem",
+					"cars": 3, /* Quantidade de carros anunciados */
+					"picture": "foto/da/garage.png",
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				}
+				{
+					"id": 2,
+					"name": "Nome da Garagem",
+					"cars": 3, /* Quantidade de carros anunciados */
+					"picture": "foto/da/garage.png",
+					"location": {
+						"state": "SP",
+						"city": "Taquaritinga"
+					}
+				}
+			]

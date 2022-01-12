@@ -1,0 +1,15 @@
+{
+	"$id": "https://arranke.com/properties/offers.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Offers",
+	"type": "object",
+	"properties": {
+		"message": {
+			"$id": "https://arranke.com/properties/offers/message",
+			"type": "string",
+			"minLength": 5,
+			"maxLength": 1500,
+			"pattern": "^[^\\s].{3,1498}[^\\s]$"
+		}
+	}
+}

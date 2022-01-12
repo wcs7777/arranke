@@ -1,0 +1,18 @@
+{
+	"$id": "https://arranke.com/resources/users/upgrade-to-garage.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Upgrade to Garage",
+	"description": "Upgrade user account to garage dealer",
+	"type": "object",
+	"properties": {
+		"name": { "$ref": "../../properties/garages/name" },
+		"cnpj": { "$ref": "../../properties/garages/cnpj" },
+		"picture": { "$ref": "../../properties/garages/picture" },
+		"address": {
+			"type": "object",
+			"$ref": "../../properties/garages/address",
+			"required": ["cep", "state", "city", "area", "street", "number"]
+		}
+	},
+	"required": ["name", "cnpj", "picture", "address"]
+}

@@ -1,0 +1,35 @@
+{
+	"$id": "https://arranke.com/properties/individual.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Individual",
+	"type": "object",
+	"properties": {
+		"name": {
+			"$id": "https://arranke.com/properties/individuals/name",
+			"$ref": "https://arranke.com/properties/users/name"
+		},
+		"email": {
+			"$id": "https://arranke.com/properties/individuals/email",
+			"$ref": "https://arranke.com/properties/users/email"
+		},
+		"password": {
+			"$id": "https://arranke.com/properties/individuals/password",
+			"$ref": "https://arranke.com/properties/users/password"
+		},
+		"phone": {
+			"$id": "https://arranke.com/properties/individuals/phone",
+			"$ref": "https://arranke.com/properties/users/phone"
+		},
+		"cpf": {
+			"$id": "https://arranke.com/properties/individuals/cpf",
+			"type": "string",
+			"minLength": 11,
+			"maxLength": 11,
+			"pattern": "^\\d{11}$"
+		},
+		"address": {
+			"$id": "https://arranke.com/properties/individuals/address",
+			"$ref": "https://arranke.com/properties/address.schema.json"
+		}
+	}
+}

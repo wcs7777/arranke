@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const cluster = require('cluster');
+const server = require('../server');
+const config = require('../helpers/config');
+const logger = require('../helpers/logger');
+const {
+	removeUnreferencedCarPropertiesCronJob,
+} = require('../helpers/cron-job');
+
+if (config.useCluster && cluster.isMaster) {
+	logger.info(`Primary ${process.pid} is running`);
+	for (let i = 0; i < config.cpus; i++) {
+		cluster.fork();
+	}
+	cluster.on('disconnect', worker => {
+		logger.info(`Worker ${worker.process.pid} disconnected`);
+	});
+	cluster.on('exit', (worker, code, signal) => {
+		logger.info(
+			`Worker ${worker.process.pid} died with exit code ${code} (${signal})`
+		);
+		cluster.fork();
+	});
+	removeUnreferencedCarPropertiesCronJob();
+} else {
+	server.listen(config.port, () => {
+		logger.info(
+			`API started in ${config.env} mode on ${config.url}`
+		);
+		logger.info(`Worker ${process.pid} started`);
+	});
+}

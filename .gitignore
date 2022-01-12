@@ -1,0 +1,14 @@
+node_modules/
+.vscode/
+*~
+*.log*
+package-lock.json
+yarn.lock
+__pycache__/
+[a-zA-Z0-9].js
+[a-zA-Z0-9].sql
+database-user.sql
+*.pem
+.env*
+!.env.example*
+untracked/

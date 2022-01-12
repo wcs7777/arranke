@@ -1,0 +1,19 @@
+{
+	"$id": "https://arranke.com/resources/users/individual-add.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Individual Add",
+	"type": "object",
+	"properties": {
+		"name": { "$ref": "../../properties/individuals/name" },
+		"email": { "$ref": "../../properties/individuals/email" },
+		"password": { "$ref": "../../properties/individuals/password" },
+		"phone": { "$ref": "../../properties/individuals/phone" },
+		"cpf": { "$ref": "../../properties/individuals/cpf" },
+		"address": {
+			"type": "object",
+			"$ref": "../../properties/individuals/address",
+			"required": ["cep", "state", "city", "area", "street", "number"]
+		}
+	},
+	"required": ["name", "email", "password", "phone", "cpf", "address"]
+}

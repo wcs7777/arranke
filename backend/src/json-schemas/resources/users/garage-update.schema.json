@@ -1,0 +1,22 @@
+{
+	"$id": "https://arranke.com/resources/users/garage-update.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Garage Update",
+	"type": "object",
+	"properties": {
+		"name": { "$ref": "../../properties/garages/name" },
+		"cnpj": { "$ref": "../../properties/garages/cnpj" },
+		"picture": { "$ref": "../../properties/garages/picture" },
+		"responsible": {
+			"type": "object",
+			"$ref": "../../properties/garages/responsible",
+			"required": ["name", "email", "phone"]
+		},
+		"address": {
+			"type": "object",
+			"$ref": "../../properties/garages/address",
+			"required": ["cep", "state", "city", "area", "street", "number"]
+		}
+	},
+	"required": ["name", "cnpj", "picture", "responsible", "address"]
+}

@@ -1,0 +1,31 @@
+{
+	"$id": "https://arranke.com/properties/garage.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Garage",
+	"type": "object",
+	"properties": {
+		"name": {
+			"$id": "https://arranke.com/properties/garages/name",
+			"$ref": "https://arranke.com/properties/name-with-number.schema.json"
+		},
+		"cnpj": {
+			"$id": "https://arranke.com/properties/garages/cnpj",
+			"type": "string",
+			"minLength": 14,
+			"maxLength": 14,
+			"pattern": "^\\d{14}$"
+		},
+		"picture": {
+			"$id": "https://arranke.com/properties/garages/picture",
+			"$ref": "https://arranke.com/properties/picture/encoding"
+		},
+		"responsible": {
+			"$id": "https://arranke.com/properties/garages/responsible",
+			"$ref": "https://arranke.com/properties/users.schema.json"
+		},
+		"address": {
+			"$id": "https://arranke.com/properties/garages/address",
+			"$ref": "https://arranke.com/properties/address.schema.json"
+		}
+	}
+}

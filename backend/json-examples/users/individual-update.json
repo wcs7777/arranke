@@ -1,0 +1,14 @@
+{
+	"name": "Usuário Quatro - Atualizado",
+	"email": "usuario4atualizado@email.com",
+	"phone": "87558215102",
+	"cpf": "81833099095",
+	"address": {
+		"cep": "06665100",
+		"state": "SP",
+		"city": "Itapevi",
+		"area": "Conjunto Habitacional - Setor A",
+		"street": "Rua Macaúba",
+		"number": "232"
+	}
+}

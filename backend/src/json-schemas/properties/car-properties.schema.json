@@ -1,0 +1,20 @@
+{
+	"$id": "https://arranke.com/properties/car-properties.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Car Properties",
+	"description": "Used in: model, make, color, steering, transmission, brake, drivetrain and feature",
+	"type": "object",
+	"properties": {
+		"id": {
+			"$id": "https://arranke.com/properties/car-properties/id",
+			"$ref": "https://arranke.com/properties/id.schema.json"
+		},
+		"name": {
+			"$id": "https://arranke.com/properties/car-properties/name",
+			"type": "string",
+			"$ref": "https://arranke.com/properties/name-with-number.schema.json",
+			"maxLength": 40
+		}
+	},
+	"required": ["name"]
+}

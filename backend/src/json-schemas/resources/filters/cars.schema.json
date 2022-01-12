@@ -1,0 +1,26 @@
+{
+	"$id": "https://arranke.com/resources/filters/cars.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Car Filters",
+	"description": "Filters for GET /cars",
+	"type": "object",
+	"properties": {
+		"used": { "$ref": "../../properties/cars-filters/used" },
+		"make": { "$ref": "../../properties/cars-filters/make" },
+		"model": { "$ref": "../../properties/cars-filters/model" },
+		"color": { "$ref": "../../properties/cars-filters/color" },
+		"fuel": { "$ref": "../../properties/cars-filters/fuel" },
+		"steering": { "$ref": "../../properties/cars-filters/steering" },
+		"transmission": { "$ref": "../../properties/cars-filters/transmission" },
+		"brake": { "$ref": "../../properties/cars-filters/brake" },
+		"drivetrain": { "$ref": "../../properties/cars-filters/drivetrain" },
+		"feature": { "$ref": "../../properties/cars-filters/feature" },
+		"mileage": { "$ref": "../../properties/cars-filters/mileage" },
+		"price": { "$ref": "../../properties/cars-filters/price" },
+		"doors": { "$ref": "../../properties/cars-filters/doors" },
+		"plate_end": { "$ref": "../../properties/cars-filters/plate_end" },
+		"state": { "$ref": "../../properties/cars-filters/state" },
+		"city": { "$ref": "../../properties/cars-filters/city" },
+		"ordering": { "$ref": "../../properties/cars-filters/ordering" }
+	}
+}

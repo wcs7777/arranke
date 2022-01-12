@@ -1,0 +1,17 @@
+{
+	"$id": "https://arranke.com/properties/code-verification.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Code Verification",
+	"description": "Code verification for password recovery",
+	"type": "object",
+	"properties": {
+		"email": {
+			"$id": "https://arranke.com/properties/code-verification/email",
+			"$ref": "https://arranke.com/properties/users/email"
+		},
+		"code": {
+			"$id": "https://arranke.com/properties/code-verification/code",
+			"$ref": "https://arranke.com/properties/code.schema.json"
+		}
+	}
+}

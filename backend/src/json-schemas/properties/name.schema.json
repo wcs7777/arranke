@@ -1,0 +1,9 @@
+{
+	"$id": "https://arranke.com/properties/name.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Name",
+	"type": "string",
+	"minLength": 2,
+	"maxLength": 60,
+	"pattern": "^([\\u00c0-\\u01ffa-zA-Z'\\-])([ \\u00c0-\\u01ffa-zA-Z'\\-])*([\\u00c0-\\u01ffa-zA-Z'\\-])$"
+}

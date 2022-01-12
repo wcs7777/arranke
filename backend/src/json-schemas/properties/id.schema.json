@@ -1,0 +1,7 @@
+{
+	"$id": "https://arranke.com/properties/id.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "ID",
+	"type": "integer",
+	"minimum": 1
+}

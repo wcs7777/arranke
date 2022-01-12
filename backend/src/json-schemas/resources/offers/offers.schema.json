@@ -1,0 +1,10 @@
+{
+	"$id": "https://arranke.com/resources/users/offers.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Offer",
+	"type": "object",
+	"properties": {
+		"message": { "$ref": "../../properties/offers/message" }
+	},
+	"required": ["message"]
+}

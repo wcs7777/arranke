@@ -1,0 +1,29 @@
+{
+	"$id": "https://arranke.com/resources/filters/garages-filters.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Garages Filters",
+	"description": "Filters for GET /garages",
+	"type": "object",
+	"properties": {
+		"name": {
+			"$id": "https://arranke.com/properties/garages-filters/name",
+			"$ref": "https://arranke.com/properties/garages/name"
+		},
+		"state": {
+			"$id": "https://arranke.com/properties/garages-filters/state",
+			"$ref": "https://arranke.com/properties/address/state"
+		},
+		"city": {
+			"$id": "https://arranke.com/properties/garages-filters/city",
+			"$ref": "https://arranke.com/properties/address/city"
+		},
+		"ordering": {
+			"$id": "https://arranke.com/properties/garages-filters/ordering",
+			"type": "string",
+			"enum": [
+				"name",
+				"-name"
+			]
+		}
+	}
+}

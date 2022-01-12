@@ -1,0 +1,25 @@
+{
+	"$id": "https://arranke.com/properties/picture.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Picture",
+	"type": "object",
+	"properties": {
+		"sequence": {
+			"$id": "https://arranke.com/properties/picture/sequence",
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 10
+		},
+		"encoding": {
+			"$id": "https://arranke.com/properties/picture/encoding",
+			"type": "string",
+			"minLength": 6,
+			"contentEncoding": "base64",
+			"anyOf": [
+				{ "contentMediaType": "image/png" },
+				{ "contentMediaType": "image/jpeg" }
+			]
+		}
+	},
+	"required": ["sequence", "encoding"]
+}

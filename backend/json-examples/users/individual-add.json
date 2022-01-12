@@ -1,0 +1,15 @@
+{
+	"name": "Usuário Onze",
+	"email": "usuario11@email.com",
+	"password": "usuario11senha",
+	"phone": "89903858841",
+	"cpf": "29174304003",
+	"address": {
+		"cep": "24474730",
+		"state": "RJ",
+		"city": "São Gonçalo",
+		"area": "Itaúna",
+		"street": "Rua Higino de Souza",
+		"number": "932"
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"$id": "https://arranke.com/resources/password-recovery/code-generation.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Code Generation",
+	"description": "Code generation for password recovery",
+	"type": "object",
+	"properties": {
+		"email": { "$ref": "../../properties/code-generation/email" }
+	},
+	"required": ["email"]
+}

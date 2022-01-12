@@ -1,0 +1,9 @@
+{
+	"$id": "https://arranke.com/properties/code.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Code",
+	"type": "string",
+	"minLength": 8,
+	"maxLength": 8,
+	"pattern": "^\\d{8}$"
+}

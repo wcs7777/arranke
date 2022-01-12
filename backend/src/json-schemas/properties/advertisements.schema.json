@@ -1,0 +1,106 @@
+{
+	"$id": "https://arranke.com/properties/advertisement.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Advertisement",
+	"description": "Car advertisement",
+	"type": "object",
+	"properties": {
+		"make": {
+			"$id": "https://arranke.com/properties/advertisements/make",
+			"$ref": "https://arranke.com/properties/car-properties.schema.json"
+		},
+		"model": {
+			"$id": "https://arranke.com/properties/advertisements/model",
+			"$ref": "https://arranke.com/properties/car-properties.schema.json"
+		},
+		"plate": {
+			"$id": "https://arranke.com/properties/advertisements/plate",
+			"type": "string",
+			"minLength": 7,
+			"maxLength": 7,
+			"pattern": "^[A-Z]{3}((\\d{4})|(\\d[A-Z]\\d{2}))$"
+		},
+		"year": {
+			"$id": "https://arranke.com/properties/advertisements/year",
+			"type": "string",
+			"minLength": 4,
+			"maxLength": 4,
+			"pattern": "^\\d{4}$"
+		},
+		"price": {
+			"$id": "https://arranke.com/properties/advertisements/price",
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 2000000000
+		},
+		"mileage": {
+			"$id": "https://arranke.com/properties/advertisements/mileage",
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 2000000000
+		},
+		"used": {
+			"$id": "https://arranke.com/properties/advertisements/used",
+			"type": "boolean"
+		},
+		"observations": {
+			"$id": "https://arranke.com/properties/advertisements/observations",
+			"type": "string",
+			"minLength": 5,
+			"maxLength": 1500,
+			"pattern": "^[^\\s].{3,1498}[^\\s]$"
+		},
+		"pictures": {
+			"$id": "https://arranke.com/properties/advertisements/pictures",
+			"type": "array",
+			"items": {
+				"$ref": "https://arranke.com/properties/picture.schema.json"
+			},
+			"maxItems": 10,
+			"uniqueItems": true
+		},
+		"specifications": {
+			"$id": "https://arranke.com/properties/advertisements/specifications",
+			"type": "object",
+			"properties": {
+				"doors": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/doors",
+					"type": "integer",
+					"minimum": 2,
+					"maximum": 100
+				},
+				"color": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/color",
+					"$ref": "https://arranke.com/properties/car-properties.schema.json"
+				},
+				"fuel": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/fuel",
+					"$ref": "https://arranke.com/properties/car-properties.schema.json"
+				},
+				"steering": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/steering",
+					"$ref": "https://arranke.com/properties/car-properties.schema.json"
+				},
+				"transmission": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/transmission",
+					"$ref": "https://arranke.com/properties/car-properties.schema.json"
+				},
+				"brake": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/brake",
+					"$ref": "https://arranke.com/properties/car-properties.schema.json"
+				},
+				"drivetrain": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/drivetrain",
+					"$ref": "https://arranke.com/properties/car-properties.schema.json"
+				},
+				"feature": {
+					"$id": "https://arranke.com/properties/advertisements/specifications/feature",
+					"type": "array",
+					"items": { "$ref": "https://arranke.com/properties/car-properties.schema.json" },
+					"maxItems": 30,
+					"uniqueItems": true
+				}
+			}
+		}
+	}
+}

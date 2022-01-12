@@ -1,0 +1,43 @@
+{
+	"$id": "https://arranke.com/resources/users/advertisement.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Advertisement",
+	"type": "object",
+	"properties": {
+		"make": { "$ref": "../../properties/advertisements/make" },
+		"model": { "$ref": "../../properties/advertisements/model" },
+		"plate": { "$ref": "../../properties/advertisements/plate" },
+		"year": { "$ref": "../../properties/advertisements/year" },
+		"price": { "$ref": "../../properties/advertisements/price" },
+		"mileage": { "$ref": "../../properties/advertisements/mileage" },
+		"used": { "$ref": "../../properties/advertisements/used" },
+		"observations": { "$ref": "../../properties/advertisements/observations" },
+		"pictures": { "$ref": "../../properties/advertisements/pictures" },
+		"specifications": {
+			"type": "object",
+			"$ref": "../../properties/advertisements/specifications",
+			"required": [
+				"doors",
+				"color",
+				"fuel",
+				"steering",
+				"transmission",
+				"brake",
+				"drivetrain",
+				"features"
+			]
+		}
+	},
+	"required": [
+		"make",
+		"model",
+		"plate",
+		"year",
+		"price",
+		"mileage",
+		"used",
+		"observations",
+		"pictures",
+		"specifications"
+	]
+}

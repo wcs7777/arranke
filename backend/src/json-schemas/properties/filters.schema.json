@@ -1,0 +1,26 @@
+{
+	"$id": "https://arranke.com/properties/filters.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Filters",
+	"description": "Filter types for GET /cars and /garages",
+	"type": "object",
+	"properties": {
+		"boolean": {
+			"$id": "https://arranke.com/properties/filters/boolean",
+			"type": "string",
+			"enum": ["0", "1"]
+		},
+		"list": {
+			"$id": "https://arranke.com/properties/filters/list",
+			"type": "string",
+			"maxLength": 600,
+			"pattern": "^(?=(\\[\\d+(,\\d+)*))\\1\\]$"
+		},
+		"range": {
+			"$id": "https://arranke.com/properties/filters/range",
+			"type": "string",
+			"maxLength": 22,
+			"pattern": "^\\d+\\|\\d+$"
+		}
+	}
+}

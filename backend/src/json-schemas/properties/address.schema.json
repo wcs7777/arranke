@@ -1,0 +1,41 @@
+{
+	"$id": "https://arranke.com/properties/address.schema.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Address",
+	"type": "object",
+	"properties": {
+		"cep": {
+			"$id": "https://arranke.com/properties/address/cep",
+			"type": "string",
+			"minLength": 8,
+			"maxLength": 8,
+			"pattern": "^\\d{8}$"
+		},
+		"state": {
+			"$id": "https://arranke.com/properties/address/state",
+			"type": "string",
+			"minLength": 2,
+			"maxLength": 2,
+			"pattern": "^[A-Z]{2}$"
+		},
+		"city": {
+			"$id": "https://arranke.com/properties/address/city",
+			"$ref": "https://arranke.com/properties/name.schema.json"
+		},
+		"area": {
+			"$id": "https://arranke.com/properties/address/area",
+			"$ref": "https://arranke.com/properties/name-with-number.schema.json"
+		},
+		"street": {
+			"$id": "https://arranke.com/properties/address/street",
+			"$ref": "https://arranke.com/properties/name-with-number.schema.json"
+		},
+		"number": {
+			"$id": "https://arranke.com/properties/address/number",
+			"type": "string",
+			"minLength": 1,
+			"maxLength": 10,
+			"pattern": "^\\d{1,10}$"
+		}
+	}
+}
